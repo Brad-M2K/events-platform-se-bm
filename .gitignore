@@ -41,4 +41,6 @@ yarn-error.log*
 next-env.d.ts
 docs-local.md
 
+# prisma
 /src/generated/prisma
+/prisma/dev.db

@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -16,8 +15,12 @@ model Event {
   durationMins Int
   location     String
   capacity     Int
+  imageUrl     String?
+  category     String?
   createdAt    DateTime @default(now())
   signups      Signup[]
+
+  @@index([dateTime])
 }
 
 model Signup {
@@ -28,5 +31,6 @@ model Signup {
   createdAt DateTime @default(now())
   event     Event    @relation(fields: [eventId], references: [id])
 
+  @@unique([eventId, email])
   @@index([eventId])
 }
