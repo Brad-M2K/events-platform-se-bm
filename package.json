@@ -6,7 +6,27 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+
+    "prisma:gen": "prisma generate",
+
+    "// dev (reads .env)": "",
+
+    "db:dev:deploy": "prisma migrate deploy",
+    "db:dev:reset": "prisma migrate reset --force",
+    "db:dev:seed": "prisma db seed",
+    "db:dev:refresh": "npm run db:dev:reset && npm run db:dev:deploy && npm run db:dev:seed",
+    "db:studio:dev": "prisma studio",
+    
+    "// test (loads .env.test via dotenv CLI)": "",
+
+    "test": "dotenv -e .env.test -- jest",
+    "test:watch": "dotenv -e .env.test -- jest --watchAll",
+    "db:test:deploy": "dotenv -e .env.test -- prisma migrate deploy",
+    "db:test:reset": "dotenv -e .env.test -- prisma migrate reset --force",
+    "db:test:seed": "dotenv -e .env.test -- prisma db seed",
+    "db:test:refresh": "npm run db:test:reset && npm run db:test:deploy && npm run db:test:seed",
+    "db:studio:test": "dotenv -e .env.test -- prisma studio"
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
@@ -18,14 +38,27 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
+    "dotenv-cli": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
     "prisma": "^6.16.3",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.13",
+    "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }
