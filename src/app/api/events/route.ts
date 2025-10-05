@@ -6,7 +6,7 @@ export const runtime = 'nodejs';
 const prisma = new PrismaClient();
 
 
-export async function GET() {
+export async function GET(req?: Request) {
     const events = await prisma.event.findMany({
         orderBy: { dateTime: 'asc'}
     })
