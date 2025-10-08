@@ -7,19 +7,14 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-
     "prisma:gen": "prisma generate",
-
     "// dev (reads .env)": "",
-
     "db:dev:deploy": "prisma migrate deploy",
     "db:dev:reset": "prisma migrate reset --force",
     "db:dev:seed": "prisma db seed",
     "db:dev:refresh": "npm run db:dev:reset && npm run db:dev:deploy && npm run db:dev:seed",
     "db:studio:dev": "prisma studio",
-    
     "// test (loads .env.test via dotenv CLI)": "",
-
     "test": "dotenv -e .env.test -- jest",
     "test:watch": "dotenv -e .env.test -- jest --watchAll",
     "db:test:deploy": "dotenv -e .env.test -- prisma migrate deploy",
@@ -30,7 +25,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
-    "@prisma/client": "^6.16.3",
+    "@prisma/client": "^6.17.0",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
@@ -52,7 +47,7 @@
     "eslint-config-next": "15.5.4",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
-    "prisma": "^6.16.3",
+    "prisma": "^6.17.0",
     "tailwindcss": "^4.1.13",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",

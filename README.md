@@ -25,7 +25,7 @@ flowchart LR
     Browser["Next.js App Router\n(React, TypeScript)"] -->|fetch| API["Route Handlers\n/src/app/api/**"]
     API --> Prisma["Prisma Client"]
     Prisma --> Postgres[(PostgreSQL)]
-    Seed["Seed Script\nprisma/seed.ts"] --> Postgres
+    Seed["Seed Script\nprisma/seed.ts"] --> Prisma
     Tests["Jest Suite\n__tests__"] --> API
 ```
 
@@ -165,6 +165,11 @@ All API handlers delegate to Prisma and share a centralized error translator (`s
 | `name`, `email` | `String` | Email is unique per event (`@@unique([eventId, email])`). |
 | `createdAt` | `DateTime` | Default `now()`. |
 
+### Entity Relationship Overview
+![Entity relationship diagram showing Event to Signup foreign key](prisma/Schema-v1.png)
+
+`Signup.eventId` is the foreign key referencing `Event.id`, giving each event many signups while every signup points back to a single event.
+
 ---
 
 ## Project Layout
@@ -176,6 +181,7 @@ All API handlers delegate to Prisma and share a centralized error translator (`s
 │   │   │   ├── events/route.ts
 │   │   │   ├── events/[id]/route.ts
 │   │   │   └── events/[id]/signup/route.ts
+│   │   ├── Layout.tsx
 │   │   └── page.tsx
 │   └── lib/
 │       ├── handlePrismaError.ts
