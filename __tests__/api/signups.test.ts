@@ -27,8 +27,6 @@ describe('/api/events/:id/signups', () => {
     describe('POST', () => {
         
         test('returns 201, and inserts into DB', async () => {
-            
-
             const request = new Request(`http://test/api/events/${eventId}/signups`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -64,8 +62,6 @@ describe('/api/events/:id/signups', () => {
         })
 
         test('returns 400 if name or email missing', async () => {
-            
-
             const reqNoName = new Request(`http://test/api/events/${eventId}/signups`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -84,8 +80,6 @@ describe('/api/events/:id/signups', () => {
         })
 
         test('returns 409 if user already signed up', async () => {
-           
-
             const request = new Request(`http://test/api/events/${eventId}/signups`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -96,15 +90,6 @@ describe('/api/events/:id/signups', () => {
             
             expect(response.status).toBe(409)
         })
-
-        test.skip('', async () => {
-            
-        })
-
-        test.skip('', async () => {
-            
-        })
-
 
     })
 })

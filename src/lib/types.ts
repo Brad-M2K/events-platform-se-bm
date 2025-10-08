@@ -11,6 +11,8 @@ export type AppEvent = {
     durationMins: number;
     location: string;
     capacity: number;
+    imageUrl?: string | null;
+    category?: string | null;
     readonly available: number; // FK -> capacity - SignUps
 
 }

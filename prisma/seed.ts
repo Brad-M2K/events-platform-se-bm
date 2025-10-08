@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 const seedEvents = [
     {
         title: "Coffee Morning Meetup",
-        description: "Join us for a relaxed morning of coffee and conversation.",
+        description: "Ease into the day with friendly chatter, artisan brews, and pastries in a relaxed lounge corner. Hosts facilitate introductions so newcomers instantly feel part of the neighbourhood.",
         dateTime: new Date('2024-07-10T09:00:00'),
         durationMins: 90,
         location: "Greenwood Community Center",
@@ -25,7 +25,7 @@ const seedEvents = [
     },
     {
         title: "Saturday Park Run",
-        description: "A friendly 5k run around the city park for all fitness levels.",
+        description: "Set your own pace on a marshalled 5k loop supported by pacers for walkers, joggers, and seasoned runners. Finish-line cooldown stretches and fresh fruit await every participant.",
         dateTime: new Date('2024-07-13T08:00:00'),
         durationMins: 60,
         location: "City Park",
@@ -35,7 +35,7 @@ const seedEvents = [
     },
     {
         title: "Open Mic Night",
-        description: "Showcase your talent or enjoy performances by local artists.",
+        description: "Share your voice on a well-equipped stage or cheer on poets, comics, and acoustic artists from cosy café seating. An energetic emcee keeps the night flowing while the bar serves specials.",
         dateTime: new Date('2024-07-15T19:30:00'),
         durationMins: 120,
         location: "The Blue Note Cafe",
@@ -45,7 +45,7 @@ const seedEvents = [
     },
     {
         title: "Photography Workshop",
-        description: "Learn the basics of photography with hands-on practice.",
+        description: "Master composition, lighting, and storytelling through guided studio demos followed by outdoor shooting walks. Tutors provide live feedback so you leave with portfolio-ready shots.",
         dateTime: new Date('2024-07-20T14:00:00'),
         durationMins: 180,
         location: "Art Studio 12",
@@ -55,7 +55,7 @@ const seedEvents = [
     },
     {
         title: "Family Fun Day",
-        description: "A day full of games, crafts, and activities for the whole family.",
+        description: "Bring the whole crew for craft tents, inflatables, sensory play zones, and story corners spread across the park. Rotating activity leaders keep kids engaged while parents enjoy picnic spots.",
         dateTime: new Date('2024-07-22T10:00:00'),
         durationMins: 240,
         location: "Riverside Park",
@@ -65,7 +65,7 @@ const seedEvents = [
     },
     {
         title: "Community Social Evening",
-        description: "Meet your neighbors and enjoy an evening of food and music.",
+        description: "Catch up with neighbours over buffet tables of local flavours, unplugged music, and conversation prompts. Icebreakers and themed seating make meeting someone new effortless.",
         dateTime: new Date('2024-07-25T18:00:00'),
         durationMins: 150,
         location: "Town Hall",
@@ -75,7 +75,7 @@ const seedEvents = [
     },
     {
         title: "Yoga in the Park",
-        description: "Start the weekend with an energising outdoor yoga session.",
+        description: "Awaken your body with sunrise vinyasa surrounded by birdsong and fresh air. Instructors offer gentle and advanced variations so every level leaves grounded and energised.",
         dateTime: new Date('2024-07-27T08:30:00'),
         durationMins: 75,
         location: "Lakeview Park",
@@ -85,7 +85,7 @@ const seedEvents = [
     },
     {
         title: "Neighborhood Book Swap",
-        description: "Bring a book and take a book while meeting fellow readers.",
+        description: "Swap favourite reads, discover new authors, and join mini book-club chats curated by librarians. Bring gently used books and leave with recommendations for your next page-turner.",
         dateTime: new Date('2024-07-30T18:30:00'),
         durationMins: 120,
         location: "Maple Street Library",
@@ -95,7 +95,7 @@ const seedEvents = [
     },
     {
         title: "Tech Networking Lunch",
-        description: "Connect with local tech professionals over lunch.",
+        description: "Connect with engineers, founders, and recruiters over chef-prepared small plates and casual roundtables. Lightning introductions spark collaborations long after dessert is cleared.",
         dateTime: new Date('2024-08-01T12:00:00'),
         durationMins: 90,
         location: "Innovation Hub",
@@ -105,7 +105,7 @@ const seedEvents = [
     },
     {
         title: "Coding Bootcamp Taster",
-        description: "Hands-on introduction to modern web development tools.",
+        description: "Dip into modern web development with live coding demos, guided exercises, and candid Q&A with mentors. Perfect for curious beginners exploring their first steps toward tech.",
         dateTime: new Date('2024-08-03T10:00:00'),
         durationMins: 180,
         location: "Tech Returners Campus",
@@ -115,7 +115,7 @@ const seedEvents = [
     },
     {
         title: "Local Art Walk",
-        description: "Guided tour of murals and galleries in the creative quarter.",
+        description: "Stroll the creative quarter while a guide reveals hidden murals, pop-up galleries, and the stories behind each artist. Expect spontaneous studio visits and sketching stops.",
         dateTime: new Date('2024-08-05T17:00:00'),
         durationMins: 150,
         location: "Arts District",
@@ -125,7 +125,7 @@ const seedEvents = [
     },
     {
         title: "Charity Quiz Night",
-        description: "Test your trivia knowledge while raising funds for charity.",
+        description: "Assemble a team for five rounds of trivia, picture puzzles, and music bingo to raise funds for a local cause. A lively host, spot prizes, and themed cocktails keep energy high.",
         dateTime: new Date('2024-08-07T19:00:00'),
         durationMins: 150,
         location: "Old Oak Pub",
@@ -135,7 +135,7 @@ const seedEvents = [
     },
     {
         title: "Small Business Meet & Greet",
-        description: "Local entrepreneurs share stories and collaborate on ideas.",
+        description: "Hear lightning talks from local founders then rotate through networking pods focused on marketing, finance, and partnerships. Showcase tables let you sample products firsthand.",
         dateTime: new Date('2024-08-09T08:00:00'),
         durationMins: 120,
         location: "Chamber of Commerce",
@@ -145,7 +145,7 @@ const seedEvents = [
     },
     {
         title: "Mindfulness Workshop",
-        description: "Practical techniques to bring mindfulness into your day.",
+        description: "Unwind with guided meditation, gentle movement, and journaling prompts you can fold into busy routines. Leave with a personal toolkit for managing stress with ease.",
         dateTime: new Date('2024-08-12T18:00:00'),
         durationMins: 120,
         location: "Willow Wellness Studio",
@@ -155,7 +155,7 @@ const seedEvents = [
     },
     {
         title: "STEM Kids Workshop",
-        description: "Interactive science experiments for curious kids aged 8-12.",
+        description: "Young scientists build rockets, code mini robots, and run gooey experiments with expert supervision. Parents receive take-home guides to keep curiosity roaring at home.",
         dateTime: new Date('2024-08-14T15:00:00'),
         durationMins: 120,
         location: "Discovery Centre",
@@ -165,7 +165,7 @@ const seedEvents = [
     },
     {
         title: "Food Truck Fiesta",
-        description: "Taste the best street food from local vendors with live music.",
+        description: "Sample signature dishes from rotating street-food vendors while local DJs spin upbeat sets. Communal seating and lawn games create an all-evening festival vibe.",
         dateTime: new Date('2024-08-16T17:30:00'),
         durationMins: 210,
         location: "Riverfront Promenade",
@@ -175,7 +175,7 @@ const seedEvents = [
     },
     {
         title: "Trail Cleanup Day",
-        description: "Help keep our hiking trails pristine with this volunteer day.",
+        description: "Join fellow volunteers to clear litter, trim overgrowth, and log maintenance needs along the ridge. Conservation guides share ecology insights during rest stops.",
         dateTime: new Date('2024-08-18T09:00:00'),
         durationMins: 180,
         location: "Pine Ridge Trailhead",
@@ -185,7 +185,7 @@ const seedEvents = [
     },
     {
         title: "Board Game Marathon",
-        description: "Bring your favourite games or try something new at this marathon.",
+        description: "Settle in for hours of classics and indie strategy titles with game masters ready to teach every rule set. Refuel at the snack bar and dive into mini tournaments all day long.",
         dateTime: new Date('2024-08-20T13:00:00'),
         durationMins: 240,
         location: "Community Hub",
@@ -195,7 +195,7 @@ const seedEvents = [
     },
     {
         title: "Career Coaching Clinic",
-        description: "One-to-one sessions with career coaches to polish your CV.",
+        description: "Book micro-sessions with certified coaches to refresh CVs, polish LinkedIn profiles, and rehearse interview stories. Resource stations offer templates and headshot backdrops.",
         dateTime: new Date('2024-08-22T10:00:00'),
         durationMins: 180,
         location: "Civic Centre",
@@ -205,7 +205,7 @@ const seedEvents = [
     },
     {
         title: "Salsa Dance Class",
-        description: "Learn the basics of salsa dancing with experienced instructors.",
+        description: "Learn footwork, partner connection, and expressive styling in a supportive studio with rotating instructors. The final social sets give you time to try new moves with the group.",
         dateTime: new Date('2024-08-24T19:00:00'),
         durationMins: 120,
         location: "Harbour Dance Studio",
@@ -215,7 +215,7 @@ const seedEvents = [
     },
     {
         title: "Farmers Market Preview",
-        description: "Meet growers and sample produce before the autumn market.",
+        description: "Meet growers, sample peak-season produce, and preorder subscriptions before the main market opens. Micro workshops cover zero-waste cooking and balcony gardening.",
         dateTime: new Date('2024-08-27T07:30:00'),
         durationMins: 180,
         location: "Harvest Hall",
@@ -225,7 +225,7 @@ const seedEvents = [
     },
     {
         title: "Craft Beer Tasting",
-        description: "Sample seasonal brews with guided tasting notes.",
+        description: "Explore limited releases with guided tasting notes from master brewers paired with palate-cleansing snacks. Guests vote for the standout brew to feature at the next tap takeover.",
         dateTime: new Date('2024-08-29T18:30:00'),
         durationMins: 150,
         location: "Hop House",
@@ -235,7 +235,7 @@ const seedEvents = [
     },
     {
         title: "Parent & Toddler Playgroup",
-        description: "Soft play, sing-alongs, and coffee for parents and toddlers.",
+        description: "Soft play zones, sensory bins, and sing-along circles keep little ones joyful while carers swap tips over coffee. Staff lead storytime and nursery rhymes every half hour.",
         dateTime: new Date('2024-09-02T09:30:00'),
         durationMins: 120,
         location: "Sunny Start Centre",
@@ -245,7 +245,7 @@ const seedEvents = [
     },
     {
         title: "Community Film Screening",
-        description: "Outdoor screening of a classic film with popcorn provided.",
+        description: "Bring blankets for an outdoor cinema experience projecting a beloved classic under the stars. Food stalls and trivia intervals make it a full evening out.",
         dateTime: new Date('2024-09-04T20:00:00'),
         durationMins: 150,
         location: "Elm Street Amphitheatre",
@@ -255,7 +255,7 @@ const seedEvents = [
     },
     {
         title: "Senior Fitness Class",
-        description: "Gentle exercise tailored for seniors to stay active.",
+        description: "Stay active with low-impact cardio, balance drills, and chair-supported strength work tailored for seniors. Physiotherapists provide individual adjustments and home plans.",
         dateTime: new Date('2024-09-06T10:30:00'),
         durationMins: 75,
         location: "Harmony Health Club",
@@ -265,7 +265,7 @@ const seedEvents = [
     },
     {
         title: "Photography Walkabout",
-        description: "Capture golden-hour photos with guidance from a pro photographer.",
+        description: "Join a pro photographer for golden-hour walks capturing architecture, people, and hidden textures. Receive composition challenges and live critiques as you shoot.",
         dateTime: new Date('2024-09-08T18:00:00'),
         durationMins: 120,
         location: "Old Town Square",
@@ -275,7 +275,7 @@ const seedEvents = [
     },
     {
         title: "Cooking with Local Chefs",
-        description: "Learn seasonal recipes in this interactive cooking class.",
+        description: "Roll up your sleeves to prep seasonal dishes while chefs guide knife skills, seasoning, and plating. Enjoy a shared supper and recipe cards to recreate at home.",
         dateTime: new Date('2024-09-10T17:30:00'),
         durationMins: 180,
         location: "Harvest Kitchen",
@@ -285,7 +285,7 @@ const seedEvents = [
     },
     {
         title: "Startup Pitch Practice",
-        description: "Early-stage founders pitch for feedback from mentors.",
+        description: "Early-stage founders deliver five-minute pitches followed by targeted mentor feedback. Peer networking and investor office hours help refine the next funding steps.",
         dateTime: new Date('2024-09-12T16:00:00'),
         durationMins: 150,
         location: "Venture Lab",
@@ -295,7 +295,7 @@ const seedEvents = [
     },
     {
         title: "Crafting for Charity",
-        description: "Make blankets and care packages for local shelters.",
+        description: "Gather with makers to sew, knit, and assemble care packages while charities brief you on recipient needs. Supplies are provided—just bring enthusiasm and patience.",
         dateTime: new Date('2024-09-14T11:00:00'),
         durationMins: 180,
         location: "Makerspace Studio",
@@ -305,7 +305,7 @@ const seedEvents = [
     },
     {
         title: "Evening Coding Dojo",
-        description: "Collaborative coding challenges for all skill levels.",
+        description: "Pair up for algorithm katas, refactoring challenges, and retrospectives guided by experienced facilitators. Lightning talks break up the hands-on problem solving.",
         dateTime: new Date('2024-09-16T18:30:00'),
         durationMins: 150,
         location: "Tech Returners Campus",
@@ -315,7 +315,7 @@ const seedEvents = [
     },
     {
         title: "Urban Sketchers Meetup",
-        description: "Sketch city scenes together and share techniques.",
+        description: "Pack pens and watercolours to explore city corners with fellow sketchers capturing light, lines, and movement. Compare techniques over a café debrief afterward.",
         dateTime: new Date('2024-09-18T17:00:00'),
         durationMins: 120,
         location: "Central Plaza",
@@ -325,7 +325,7 @@ const seedEvents = [
     },
     {
         title: "Acoustic Garden Concert",
-        description: "Relax to acoustic sets in a tranquil garden setting.",
+        description: "Unplug and unwind to stripped-back sets surrounded by fragrant blooms and lantern lighting. Artisans pour refreshments while music drifts through the garden.",
         dateTime: new Date('2024-09-20T19:00:00'),
         durationMins: 150,
         location: "Botanical Gardens",
@@ -335,7 +335,7 @@ const seedEvents = [
     },
     {
         title: "Local History Walking Tour",
-        description: "Discover hidden stories with a guided history walk.",
+        description: "Step back in time as historians guide you through hidden alleys, landmark buildings, and tales of influential residents. Vintage photographs help you picture each era.",
         dateTime: new Date('2024-09-22T14:00:00'),
         durationMins: 120,
         location: "Heritage Square",
@@ -345,7 +345,7 @@ const seedEvents = [
     },
     {
         title: "Podcasting 101",
-        description: "Learn planning, recording, and publishing for your first podcast.",
+        description: "Demystify planning, recording, and publishing with hands-on demos using accessible gear. Build a content plan and leave ready to launch your first episode.",
         dateTime: new Date('2024-09-24T18:00:00'),
         durationMins: 120,
         location: "Media Lab",

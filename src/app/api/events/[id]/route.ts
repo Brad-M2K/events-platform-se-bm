@@ -8,7 +8,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 
-export async function GET(request?: Request, context?: { params: { id: string } }) {
+export async function GET(_request?: Request, context?: { params: { id: string } }) {
     const { id } = context!.params;
 
     const event = await prisma.event.findUnique({
