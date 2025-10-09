@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { listEvents } from '@/lib/data/events'
 import PageHero from '@/components/PageHero'
 import type { AppEvent } from '@/lib/types'
 
@@ -7,7 +8,7 @@ import EventFilterBar from './components/EventFilterBar'
 import EventGrid from './components/EventGrid'
 
 export default async function EventListPage() {
-  const events: AppEvent[] = []
+  const events: AppEvent[] = await listEvents()
 
   return (
     <div className="space-y-10">

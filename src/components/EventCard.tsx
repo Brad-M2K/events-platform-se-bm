@@ -23,7 +23,7 @@ export default function EventCard({ event }: EventCardProps) {
   const {
     id,
     title,
-    description,
+    // description,
     dateTime,
     location,
     category,
@@ -74,7 +74,7 @@ export default function EventCard({ event }: EventCardProps) {
             <h3 className="text-xl font-semibold tracking-tight text-slate-900 group-hover:text-purple-600">
               {title}
             </h3>
-            <p className="text-sm text-slate-600">{description}</p>
+            {/* <p className="text-sm text-slate-600">{description}</p> */}
           </div>
 
           <dl className="flex flex-wrap gap-x-6 gap-y-3 text-sm">

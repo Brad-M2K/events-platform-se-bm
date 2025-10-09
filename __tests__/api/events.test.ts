@@ -23,7 +23,7 @@ describe('/api/events', () => {
         test('returns list of events', async () => {
             const response = await getEvents();
             const data = await response.json();
-            
+
 
             expect(Array.isArray(data)).toEqual(true)
         })
@@ -36,6 +36,53 @@ describe('/api/events', () => {
             const last = new Date(data[data.length - 1].dateTime).getTime()
             
             expect(first).toBeLessThanOrEqual(last)
+        })
+
+        test('includes required fields on each event', async () => {
+            const response = await getEvents()
+            const data = await response.json()
+
+            expect(data.length).toBeGreaterThan(0)
+
+            expect(data[0]).toEqual(
+                expect.objectContaining({
+                    id: expect.any(String),
+                    title: expect.any(String),
+                    description: expect.any(String),
+                    dateTime: expect.any(String),
+                    durationMins: expect.any(Number),
+                    location: expect.any(String),
+                    capacity: expect.any(Number),
+                    available: expect.any(Number),
+                }),
+            )
+        })
+
+        test('dateTime values are ISO strings', async () => {
+            const response = await getEvents()
+            const data = await response.json()
+
+            const sample = data[0]
+
+            expect(new Date(sample.dateTime).toString()).not.toBe('Invalid Date')
+        })
+
+        test('available matches capacity minus signups', async () => {
+            const fromDb = await prisma.event.findFirst({
+                include: { _count: { select: { signups: true } } },
+            })
+
+            expect(fromDb).not.toBeNull()
+
+            const response = await getEvents()
+            const data = await response.json()
+
+            const match = data.find((event: any) => event.id === fromDb!.id)
+
+            expect(match).toBeDefined()
+            expect(match.available).toBe(
+                Math.max(fromDb!.capacity - fromDb!._count.signups, 0),
+            )
         })
 
     })
@@ -55,15 +102,52 @@ describe('/api/events', () => {
             test('returns single event by id', async () => {
                 const found = await prisma.event.findFirst({ select: { id: true } })
                 const id = found!.id
-    
+
                 const response = await getEvent(undefined, { params: { id } })
                 const data = await response.json()
-    
+
                 expect(data).toHaveProperty('id', id)
-                expect(typeof data.title).toBe('string')
-                expect(new Date(data.dateTime.toString())).not.toBe('Invalid Date')
+                expect(data).toEqual(
+                    expect.objectContaining({
+                        title: expect.any(String),
+                        description: expect.any(String),
+                        dateTime: expect.any(String),
+                        durationMins: expect.any(Number),
+                        location: expect.any(String),
+                        capacity: expect.any(Number),
+                        available: expect.any(Number),
+                    }),
+                )
             })
-    
+
+            test('single event dateTime is ISO string', async () => {
+                const found = await prisma.event.findFirst({ select: { id: true } })
+                const id = found!.id
+
+                const response = await getEvent(undefined, { params: { id } })
+                const data = await response.json()
+
+                expect(new Date(data.dateTime).toString()).not.toBe('Invalid Date')
+            })
+
+            test('single event available matches capacity minus signups', async () => {
+                const found = await prisma.event.findFirst({ select: { id: true } })
+                const id = found!.id
+
+                const response = await getEvent(undefined, { params: { id } })
+                const data = await response.json()
+
+                const fromDb = await prisma.event.findUnique({
+                    where: { id },
+                    include: { _count: { select: { signups: true } } },
+                })
+
+                expect(fromDb).not.toBeNull()
+                expect(data.available).toBe(
+                    Math.max(fromDb!.capacity - fromDb!._count.signups, 0),
+                )
+            })
+
             test('returns 404 for invalid id', async () => {
                 const badId = '00000000-0000-0000-0000-000000000000'
     

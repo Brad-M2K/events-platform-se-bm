@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import EventCard from '@/components/EventCard'
 import PageHero from '@/components/PageHero'
-import type { AppEvent } from '@/lib/types'
 import { listEvents }  from '@/lib/data/events'
 
 const valueProps = [
