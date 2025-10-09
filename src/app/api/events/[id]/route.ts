@@ -1,21 +1,15 @@
 import { NextResponse } from 'next/server'
 
-export const runtime = 'nodejs';
+import { findEventById } from '@/lib/data/events'
 
-import { PrismaClient } from '@prisma/client';
-
-
-const prisma = new PrismaClient();
-
+export const runtime = 'nodejs'
 
 export async function GET(_request?: Request, context?: { params: { id: string } }) {
-    const { id } = context!.params;
+  const { id } = context!.params
 
-    const event = await prisma.event.findUnique({
-        where: { id }
-    })
+  const event = await findEventById(id)
 
-    if(!event) return NextResponse.json({ error: 'Event Not found' }, { status: 404 })
+  if (!event) return NextResponse.json({ error: 'Event Not found' }, { status: 404 })
 
-    return NextResponse.json(event)
+  return NextResponse.json(event)
 }

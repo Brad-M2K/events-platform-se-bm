@@ -13,7 +13,7 @@ export type AppEvent = {
     capacity: number;
     imageUrl?: string | null;
     category?: string | null;
-    readonly available: number; // FK -> capacity - SignUps
+    readonly available: number; // computed from capacity - signups
 
 }
 

@@ -3,21 +3,7 @@ import Link from 'next/link'
 import EventCard from '@/components/EventCard'
 import PageHero from '@/components/PageHero'
 import type { AppEvent } from '@/lib/types'
-
-const demoEvent: AppEvent = {
-  id: 'demo-event',
-  title: 'ShadCN Showcase Evening',
-  description:
-    'Preview the updated signup panel powered by shadcn/ui components while enjoying a relaxed dev social.',
-  dateTime: new Date('2024-08-20T18:00:00Z').toISOString(),
-  durationMins: 120,
-  location: 'Innovation Hub',
-  capacity: 40,
-  category: 'Community',
-  available: 16,
-  imageUrl:
-    'https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=1200&auto=format&fit=crop',
-}
+import { listEvents }  from '@/lib/data/events'
 
 const valueProps = [
   {
@@ -34,7 +20,16 @@ const valueProps = [
   },
 ]
 
-export default function Home() {
+
+
+
+export default async function Home() {
+
+
+  const events = await listEvents()
+  const featured = events.slice(0, 2)
+
+
   return (
     <div className="space-y-12">
       <PageHero
@@ -46,7 +41,7 @@ export default function Home() {
             <Link
               href="/events"
               className="rounded-lg bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-purple-500"
-            >
+              >
               Browse all events
             </Link>
             <Link
@@ -79,13 +74,17 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <EventCard event={demoEvent} />
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-sm text-slate-600">
-            Hook this area to your API when ready. The card on the left is a single demo event so you
-            can click through the flow.
+        {featured.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2">
+            {featured.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
           </div>
-        </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-600">
+            Highlighted events will appear here once the backend is wired up.
+          </div>
+        )}
       </section>
     </div>
   )

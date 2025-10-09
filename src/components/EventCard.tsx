@@ -84,7 +84,7 @@ export default function EventCard({ event }: EventCardProps) {
             </div>
             <div>
               <dt className="font-medium text-slate-700">Spots left</dt>
-              <dd className="text-slate-600">{available}</dd>
+              <dd className="text-slate-600">{available ?? '—'}</dd>
             </div>
           </dl>
         </div>

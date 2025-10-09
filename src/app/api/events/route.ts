@@ -1,15 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
 
-import { PrismaClient } from '@prisma/client';
+import { listEvents } from '@/lib/data/events'
 
-export const runtime = 'nodejs';
-const prisma = new PrismaClient();
-
+export const runtime = 'nodejs'
 
 export async function GET() {
-    const events = await prisma.event.findMany({
-        orderBy: { dateTime: 'asc'}
-    })
+  const events = await listEvents()
 
-    return NextResponse.json(events);
+  return NextResponse.json(events)
 }

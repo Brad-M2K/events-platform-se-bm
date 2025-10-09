@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server'
 import handlePrismaError from '@/lib/handlePrismaError'
 
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { createSignup } from '@/lib/data/events'
 
 export async function POST(request: Request, context: { params: { id: string } }) {
 
@@ -16,7 +14,7 @@ export async function POST(request: Request, context: { params: { id: string } }
     
 
     try {
-        const signup = await prisma.signup.create({ data: { eventId, name, email } })
+        const signup = await createSignup(eventId, { name, email })
         
         return NextResponse.json(signup, { status: 201 })
 
