@@ -17,9 +17,9 @@ export default function EventDetailHeader({ event }: EventDetailHeaderProps) {
 
   return (
     <header className="space-y-6 rounded-3xl bg-slate-900 px-8 py-10 text-white shadow-lg">
-      <div className="flex flex-wrap items-center gap-3 text-sm text-indigo-200">
+      <div className="flex flex-wrap items-center gap-3 text-sm text-purple-200">
         {category && (
-          <span className="inline-flex items-center rounded-full bg-indigo-600/70 px-3 py-1 uppercase tracking-wide">
+          <span className="inline-flex items-center rounded-full bg-purple-600/70 px-3 py-1 uppercase tracking-wide">
             {category}
           </span>
         )}

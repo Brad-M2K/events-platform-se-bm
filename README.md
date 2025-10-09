@@ -80,6 +80,14 @@ npm run dev
 ```
 Visit `http://localhost:3000` to browse events once the frontend is built out. API endpoints are available immediately under `http://localhost:3000/api/...`.
 
+### 6. (Optional) Install shadcn/ui primitives
+The UI layer uses components generated via [shadcn/ui](https://ui.shadcn.com/). On a fresh setup, run:
+```bash
+npx shadcn@latest init
+npx shadcn@latest add button card input label
+```
+Those commands populate `components.json` and ensure the files under `src/components/ui/` match the canonical versions. They rely on dependencies already listed in `package.json` (`class-variance-authority`, `tailwind-merge`, `clsx`, etc.).
+
 ---
 
 ## Available Scripts
@@ -181,11 +189,31 @@ All API handlers delegate to Prisma and share a centralized error translator (`s
 │   │   │   ├── events/route.ts
 │   │   │   ├── events/[id]/route.ts
 │   │   │   └── events/[id]/signup/route.ts
-│   │   ├── Layout.tsx
+│   │   ├── events/
+│   │   │   ├── components/
+│   │   │   │   ├── EventFilterBar.tsx
+│   │   │   │   └── EventGrid.tsx
+│   │   │   └── page.tsx
+│   │   ├── events/[id]/
+│   │   │   ├── components/
+│   │   │   │   ├── EventDetailHeader.tsx
+│   │   │   │   ├── EventQuickFacts.tsx
+│   │   │   │   └── SignupPanel.tsx
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
 │   │   └── page.tsx
+│   ├── components/
+│   │   ├── EventCard.tsx
+│   │   ├── PageHero.tsx
+│   │   └── ui/
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── input.tsx
+│   │       └── label.tsx
 │   └── lib/
 │       ├── handlePrismaError.ts
-│       └── types.ts
+│       ├── types.ts
+│       └── utils.ts
 ├── prisma/
 │   ├── schema.prisma
 │   └── seed.ts
@@ -209,6 +237,8 @@ All API handlers delegate to Prisma and share a centralized error translator (`s
 - Use `npm run db:dev:refresh` after migrations to keep seed data aligned.
 - Prisma Studio (`npm run db:studio:dev`) offers a quick GUI for inspecting events and signups.
 - Keep `.env.test` synchronized with `.env` changes so tests reflect production-like settings.
+- Theme tokens for shadcn components live in `src/app/globals.css` (`--primary`, `--accent`, etc.). Adjust those once to recolour the entire UI.
+- When you need additional shadcn primitives, use the CLI (`npx shadcn@latest add …`) so `components.json` and generated files stay in sync.
 
 ---
 

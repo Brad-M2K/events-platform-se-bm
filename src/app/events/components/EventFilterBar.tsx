@@ -18,8 +18,8 @@ export default function EventFilterBar({ filters = [], categories }: EventFilter
               type="button"
               className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                 filter.active
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                ? 'bg-purple-600 text-white shadow-sm'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
               {filter.label}

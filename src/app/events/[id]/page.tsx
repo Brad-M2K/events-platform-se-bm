@@ -10,16 +10,23 @@ type EventDetailPageProps = {
   params: { id: string }
 }
 
-const dateDetailFormatter = new Intl.DateTimeFormat('en-GB', {
-  weekday: 'long',
-  month: 'long',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-})
-
 export default async function EventDetailPage({ params }: EventDetailPageProps) {
-  const event: AppEvent | null = null
+  const sampleEvent: AppEvent = {
+    id: 'demo-event',
+    title: 'ShadCN Showcase Evening',
+    description:
+      'Preview the updated signup panel powered by shadcn/ui components while enjoying a relaxed dev social.',
+    dateTime: new Date('2024-08-20T18:00:00Z').toISOString(),
+    durationMins: 120,
+    location: 'Innovation Hub',
+    capacity: 40,
+    available: 16,
+    category: 'Community',
+    imageUrl:
+      'https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=1200&auto=format&fit=crop',
+  }
+
+  const event: AppEvent | null = params.id === sampleEvent.id ? sampleEvent : null
 
   if (!event) {
     return (
@@ -31,14 +38,22 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
           Fetch event <code>{params.id}</code> and pass it into this page. Remove this message once
           the route is hooked up to your backend.
         </p>
-        <Link href="/events" className="inline-flex items-center text-sm font-semibold text-indigo-600">
+        <Link href="/events" className="inline-flex items-center text-sm font-semibold text-purple-600">
           ← Back to events
         </Link>
       </div>
     )
   }
 
-  
+  const dateDetailFormatter = new Intl.DateTimeFormat('en-GB', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+
+  const startTime = dateDetailFormatter.format(new Date(event.dateTime))
 
   return (
     <div className="space-y-10">
@@ -83,7 +98,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         <div className="space-y-6">
           <SignupPanel ctaLabel="Sign me up" />
 
-          <Link href="/events" className="inline-flex items-center text-sm font-semibold text-indigo-600">
+          <Link href="/events" className="inline-flex items-center text-sm font-semibold text-purple-600">
             ← Back to events
           </Link>
         </div>

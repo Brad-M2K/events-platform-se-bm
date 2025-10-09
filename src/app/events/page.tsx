@@ -19,7 +19,7 @@ export default async function EventListPage() {
           <>
             <Link
               href="#upcoming"
-              className="rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500"
+              className="rounded-lg bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-purple-500"
             >
               View upcoming events
             </Link>
