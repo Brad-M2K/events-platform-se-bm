@@ -75,7 +75,17 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         </div>
 
         <div className="space-y-6">
-          <SignupPanel ctaLabel="Sign me up" />
+          <SignupPanel
+            eventId={event.id}
+            eventDetails={{
+              title,
+              description,
+              dateTime,
+              durationMins: event.durationMins,
+              location,
+            }}
+            ctaLabel="Sign me up"
+          />
 
           <Link href="/events" className="inline-flex items-center text-sm font-semibold text-[color:var(--primary)]">
             ← Back to events
