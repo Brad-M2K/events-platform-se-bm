@@ -35,10 +35,10 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <Link
       href={`/events/${id}`}
-      className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
+      className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--primary-hover)] focus-visible:ring-offset-2"
     >
       <article className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition group-hover:-translate-y-0.5 group-hover:shadow-lg">
-        <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-purple-100 via-white to-slate-100">
+        <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-[color:var(--primary-soft)] via-white to-slate-100">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -50,7 +50,7 @@ export default function EventCard({ event }: EventCardProps) {
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-4xl font-semibold text-purple-400">
+              <span className="text-4xl font-semibold text-[color:var(--primary-soft-strong)]">
                 {title.slice(0, 1)}
               </span>
             </div>
@@ -71,7 +71,7 @@ export default function EventCard({ event }: EventCardProps) {
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-xl font-semibold tracking-tight text-slate-900 group-hover:text-purple-600">
+            <h3 className="text-xl font-semibold tracking-tight text-slate-900 group-hover:text-[color:var(--primary)]">
               {title}
             </h3>
             {/* <p className="text-sm text-slate-600">{description}</p> */}

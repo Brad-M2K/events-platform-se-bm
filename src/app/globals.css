@@ -101,7 +101,15 @@
 
   --primary: #5b21b6;
 
+  --primary-hover: #4c1d95;
+
   --primary-foreground: #f8f5ff;
+
+  --primary-soft: #ede4ff;
+
+  --primary-soft-strong: #a78bfa;
+
+  --primary-border: #d7c7ff;
 
   --secondary: #efe7ff;
 
@@ -166,7 +174,15 @@
 
   --primary: #c4b5fd;
 
+  --primary-hover: #a78bfa;
+
   --primary-foreground: #1e1b4b;
+
+  --primary-soft: #3c2d74;
+
+  --primary-soft-strong: #d6ccff;
+
+  --primary-border: #4b3a85;
 
   --secondary: #2f265f;
 

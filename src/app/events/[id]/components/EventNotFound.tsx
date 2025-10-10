@@ -6,9 +6,9 @@ type EventNotFoundProps = {
 
 export default function EventNotFound({ eventId }: EventNotFoundProps) {
   return (
-    <div className="space-y-8 rounded-3xl border border-dashed border-purple-200/80 bg-white p-10 text-center shadow-sm">
+    <div className="space-y-8 rounded-3xl border border-dashed border-[color:var(--primary-border)] bg-white p-10 text-center shadow-sm">
       <div className="space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-500">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[color:var(--primary-soft-strong)]">
           Event not found
         </p>
         <h1 className="text-3xl font-bold text-slate-900">We couldn&apos;t find that event</h1>
@@ -22,7 +22,7 @@ export default function EventNotFound({ eventId }: EventNotFoundProps) {
       <div className="flex flex-wrap justify-center gap-3">
         <Link
           href="/events"
-          className="inline-flex items-center rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-purple-500"
+          className="inline-flex items-center rounded-full bg-[color:var(--primary)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[color:var(--primary-hover)]"
         >
           Browse all events
         </Link>

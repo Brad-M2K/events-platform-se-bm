@@ -210,13 +210,17 @@ All API handlers delegate to Prisma and share a centralized error translator (`s
 │   │       ├── card.tsx
 │   │       ├── input.tsx
 │   │       └── label.tsx
-│   └── lib/
-│       ├── data/
+│   ├── lib/
+│   │   ├── handlePrismaError.ts
+│   │   ├── prisma.ts
+│   │   ├── types.ts
+│   │   └── utils.ts
+│   └── server/
+│       ├── errors.ts
+│       ├── schema/
 │       │   └── events.ts
-│       ├── handlePrismaError.ts
-│       ├── prisma.ts
-│       ├── types.ts
-│       └── utils.ts
+│       └── services/
+│           └── events.service.ts
 ├── prisma/
 │   ├── schema.prisma
 │   └── seed.ts
@@ -242,6 +246,7 @@ All API handlers delegate to Prisma and share a centralized error translator (`s
 - Keep `.env.test` synchronized with `.env` changes so tests reflect production-like settings.
 - Theme tokens for shadcn components live in `src/app/globals.css` (`--primary`, `--accent`, etc.). Adjust those once to recolour the entire UI.
 - When you need additional shadcn primitives, use the CLI (`npx shadcn@latest add …`) so `components.json` and generated files stay in sync.
+- Shared database logic lives under `src/server/services`. API routes validate via Zod (`src/server/schema`) and translate service errors (`src/server/errors`) into HTTP responses—reuse the same helpers inside server components for consistency.
 
 ---
 

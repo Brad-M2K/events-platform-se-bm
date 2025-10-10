@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { listEvents } from '@/lib/data/events'
+import { listEvents } from '@/server/services/events.service'
 import PageHero from '@/components/PageHero'
 import type { AppEvent } from '@/lib/types'
 
@@ -20,7 +20,7 @@ export default async function EventListPage() {
           <>
             <Link
               href="#upcoming"
-              className="rounded-lg bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-purple-500"
+              className="rounded-lg bg-[color:var(--primary)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[color:var(--primary-hover)]"
             >
               View upcoming events
             </Link>

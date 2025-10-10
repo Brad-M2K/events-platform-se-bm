@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { findEventById } from '@/lib/data/events'
+import type { AppEvent } from '@/lib/types'
+import { getEventById } from '@/server/services/events.service'
+import { NotFoundError } from '@/server/errors'
 import EventQuickFacts from './components/EventQuickFacts'
 import SignupPanel from './components/SignupPanel'
 import EventDetailHeader from './components/EventDetailHeader'
@@ -12,22 +14,19 @@ type EventDetailPageProps = {
 }
 
 export default async function EventDetailPage({ params }: EventDetailPageProps) {
+  let event: AppEvent
+  try {
+    event = await getEventById(params.id)
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return <EventNotFound eventId={params.id} />
+    }
 
-  const event = await findEventById(params.id)
-
-  if (!event) {
-    return <EventNotFound eventId={params.id} />
+    throw error
   }
 
 
-  const {
-    title,
-    description,
-    dateTime,
-    location,
-    imageUrl,
-    
-  } = event
+  const { title, description, dateTime, location, imageUrl } = event
 
   const dateDetailFormatter = new Intl.DateTimeFormat('en-GB', {
     weekday: 'long',
@@ -45,16 +44,10 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="space-y-8">
-          {event.imageUrl && (
-            <div className="overflow-hidden rounded-3xl ">
-              <div className='relative h-72 w-full'>
-                <Image
-                  src={imageUrl!}
-                  alt={title}
-                  fill
-                  className="object-cover"
-                  loading="lazy"
-                />
+          {imageUrl && (
+            <div className="overflow-hidden rounded-3xl">
+              <div className="relative h-72 w-full">
+                <Image src={imageUrl} alt={title} fill className="object-cover" loading="lazy" />
               </div>
             </div>
           )}
@@ -84,7 +77,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         <div className="space-y-6">
           <SignupPanel ctaLabel="Sign me up" />
 
-          <Link href="/events" className="inline-flex items-center text-sm font-semibold text-purple-600">
+          <Link href="/events" className="inline-flex items-center text-sm font-semibold text-[color:var(--primary)]">
             ← Back to events
           </Link>
         </div>

@@ -1,95 +1,89 @@
 import { PrismaClient } from '@prisma/client'
+import { NextRequest } from 'next/server'
 
 import { POST as postSignup } from '@/app/api/events/[id]/signup/route'
 
 const prisma = new PrismaClient()
 
-let eventId: string;
+let eventId: string
 
 beforeAll(async () => {
-    // identical event Id to use for happy and unhappy path
     const event = await prisma.event.findFirst()
-            eventId = event!.id
+    eventId = event!.id
 })
 
 afterAll(async () => {
-    //clean up original signup after tested duplictae 409 status
     await prisma.signup.deleteMany({
-        where: { email: 'brad@test.com'}
+        where: { email: 'brad@test.com' },
     })
 
     await prisma.$disconnect()
 })
 
-
 describe('/api/events/:id/signups', () => {
-
-    describe('POST', () => {
-        
-        test('returns 201, and inserts into DB', async () => {
-            const request = new Request(`http://test/api/events/${eventId}/signups`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: 'Brad', email: 'brad@test.com' }),
-            })
-
-            const response = await postSignup(request, { params: { id: eventId } })
-            
-            expect(response.status).toBe(201)
-
-            const data = await response.json()
-
-            expect(data).toHaveProperty('email', 'brad@test.com')
-
-            const created = await prisma.signup.findUnique({ where: { id: data.id } })
-
-            expect(created).not.toBeNull()
+    describe('POST /api/events/:id/signups', () => {
+        test('responds with 201 Created when signup succeeds', async () => {
+        const request = new NextRequest(`http://test/api/events/${eventId}/signups`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: 'Brad', email: 'brad@test.com' }),
         })
 
-        test('returns 404 if the event does not exist', async () => {
-            const eventId = '00000000-0000-0000-0000-000000000000'
+        const response = await postSignup(request, { params: Promise.resolve({ id: eventId }) })
 
-            const request = new Request(`http://test/api/events/${eventId}/signups`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: 'Brad', email: 'notfound@test.com' }),
-            })
+        expect(response.status).toBe(201)
 
-            const response = await postSignup(request, { params: { id: eventId } })
-            
-            expect(response.status).toBe(404)
+        const data = await response.json()
 
+        expect(data).toHaveProperty('email', 'brad@test.com')
+
+        const created = await prisma.signup.findUnique({ where: { id: data.id } })
+
+        expect(created).not.toBeNull()
         })
 
-        test('returns 400 if name or email missing', async () => {
-            const reqNoName = new Request(`http://test/api/events/${eventId}/signups`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: 'x@test.com' }),
-            })
-            const resNoName = await postSignup(reqNoName, { params: { id: eventId } })
-            expect(resNoName.status).toBe(400)
+        test('responds with 404 Not Found when the event is missing', async () => {
+        const missingId = '00000000-0000-0000-0000-000000000000'
 
-            const reqNoEmail = new Request(`http://test/api/events/${eventId}/signups`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: 'Brad' }),
-            })
-            const resNoEmail = await postSignup(reqNoEmail, { params: { id: eventId } })
-            expect(resNoEmail.status).toBe(400)
+        const request = new NextRequest(`http://test/api/events/${missingId}/signups`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: 'Brad', email: 'notfound@test.com' }),
         })
 
-        test('returns 409 if user already signed up', async () => {
-            const request = new Request(`http://test/api/events/${eventId}/signups`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: 'Brad', email: 'brad@test.com' }),
-            })
+        const response = await postSignup(request, { params: Promise.resolve({ id: missingId }) })
 
-            const response = await postSignup(request, { params: { id: eventId } })
-            
-            expect(response.status).toBe(409)
+        expect(response.status).toBe(404)
         })
 
+        test('responds with 400 Bad Request when required fields are missing', async () => {
+        const reqNoName = new NextRequest(`http://test/api/events/${eventId}/signups`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: 'x@test.com' }),
+        })
+        const resNoName = await postSignup(reqNoName, { params: Promise.resolve({ id: eventId }) })
+        expect(resNoName.status).toBe(400)
+
+        const reqNoEmail = new NextRequest(`http://test/api/events/${eventId}/signups`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: 'Brad' }),
+        })
+        const resNoEmail = await postSignup(reqNoEmail, { params: Promise.resolve({ id: eventId }) })
+        expect(resNoEmail.status).toBe(400)
+        })
+
+        test('responds with 409 Conflict when a signup already exists', async () => {
+        const request = new NextRequest(`http://test/api/events/${eventId}/signups`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: 'Brad', email: 'brad@test.com' }),
+        })
+
+        const response = await postSignup(request, { params: Promise.resolve({ id: eventId }) })
+
+        expect(response.status).toBe(409)
+        })
     })
 })

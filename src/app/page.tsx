@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import EventCard from '@/components/EventCard'
 import PageHero from '@/components/PageHero'
-import { listEvents }  from '@/lib/data/events'
+import { listEvents }  from '@/server/services/events.service'
 
 const valueProps = [
   {
@@ -39,8 +39,8 @@ export default async function Home() {
           <>
             <Link
               href="/events"
-              className="rounded-lg bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-purple-500"
-              >
+              className="rounded-lg bg-[color:var(--primary)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[color:var(--primary-hover)]"
+            >
               Browse all events
             </Link>
             <Link
@@ -68,7 +68,7 @@ export default async function Home() {
       <section id="highlights" className="space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold text-slate-900">Upcoming highlights</h2>
-          <Link href="/events" className="text-sm font-semibold text-purple-600">
+          <Link href="/events" className="text-sm font-semibold text-[color:var(--primary)]">
             View the full schedule →
           </Link>
         </div>
