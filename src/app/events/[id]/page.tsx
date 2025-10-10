@@ -36,7 +36,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     minute: '2-digit',
   })
 
-  const startTime = dateDetailFormatter.format(new Date(dateTime))
+  const startDateDisplay = dateDetailFormatter.format(new Date(dateTime))
+  const endDateDisplay = dateDetailFormatter.format(new Date(event.endDateTime))
 
   return (
     <div className="space-y-10">
@@ -63,8 +64,12 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             <h2 className="text-xl font-semibold text-foreground">Event details</h2>
             <dl className="space-y-3 text-sm text-muted-foreground">
               <div>
-                <dt className="font-medium text-foreground">Start time</dt>
-                <dd>{startTime}</dd>
+                <dt className="font-medium text-foreground">Starts</dt>
+                <dd>{startDateDisplay} ({event.startTime})</dd>
+              </div>
+              <div>
+                <dt className="font-medium text-foreground">Ends</dt>
+                <dd>{endDateDisplay} ({event.endTime})</dd>
               </div>
               <div>
                 <dt className="font-medium text-foreground">Venue</dt>

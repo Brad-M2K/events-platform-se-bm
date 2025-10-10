@@ -8,6 +8,9 @@ export type AppEvent = {
     title: string;
     description: string;
     dateTime: ISODateString;
+    endDateTime: ISODateString;
+    startTime: string;
+    endTime: string;
     durationMins: number;
     location: string;
     capacity: number;

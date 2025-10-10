@@ -26,12 +26,22 @@ type EventWithSignupCount = Prisma.EventGetPayload<{
   include: { _count: { select: { signups: true } } }
 }>
 
+const timeFormatter = new Intl.DateTimeFormat('en-GB', {
+  hour: '2-digit',
+  minute: '2-digit',
+})
+
 const toAppEvent = (event: EventWithSignupCount): AppEvent => {
   const { _count, dateTime, ...rest } = event
+  const startDate = new Date(dateTime)
+  const endDate = new Date(startDate.getTime() + rest.durationMins * 60_000)
 
   return {
     ...rest,
-    dateTime: dateTime.toISOString(),
+    dateTime: startDate.toISOString(),
+    endDateTime: endDate.toISOString(),
+    startTime: timeFormatter.format(startDate),
+    endTime: timeFormatter.format(endDate),
     available: Math.max(rest.capacity - _count.signups, 0),
   }
 }
