@@ -46,8 +46,8 @@ export default function SignupSuccess({ eventId, eventDetails }: SignupSuccessPr
 
   return (
     <div className="space-y-4 text-center">
-      <p className="text-sm font-semibold text-green-600">Success! Your spot is reserved.</p>
-      <p className="text-sm text-slate-700">
+      <p className="text-sm font-semibold text-primary">Success! Your spot is reserved.</p>
+      <p className="text-sm text-muted-foreground">
         Thanks for signing up! We’ll send you a confirmation email soon.
       </p>
       <Button

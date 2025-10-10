@@ -39,13 +39,13 @@ export default async function Home() {
           <>
             <Link
               href="/events"
-              className="rounded-lg bg-[color:var(--primary)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[color:var(--primary-hover)]"
+              className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
             >
               Browse all events
             </Link>
             <Link
               href="#highlights"
-              className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+              className="rounded-lg border border-border px-5 py-2 text-sm font-semibold text-muted-foreground transition hover:border-border hover:text-foreground"
             >
               See highlights
             </Link>
@@ -57,18 +57,18 @@ export default async function Home() {
         {valueProps.map((prop) => (
           <article
             key={prop.title}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            className="rounded-2xl border border-border bg-card p-6 shadow-sm"
           >
-            <h2 className="text-lg font-semibold text-slate-900">{prop.title}</h2>
-            <p className="mt-2 text-sm text-slate-600">{prop.description}</p>
+            <h2 className="text-lg font-semibold text-foreground">{prop.title}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{prop.description}</p>
           </article>
         ))}
       </section>
 
       <section id="highlights" className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-slate-900">Upcoming highlights</h2>
-          <Link href="/events" className="text-sm font-semibold text-[color:var(--primary)]">
+          <h2 className="text-2xl font-semibold text-foreground">Upcoming highlights</h2>
+          <Link href="/events" className="text-sm font-semibold text-primary hover:text-primary/80">
             View the full schedule →
           </Link>
         </div>
@@ -80,7 +80,7 @@ export default async function Home() {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-600">
+          <div className="rounded-2xl border border-dashed border-border bg-card p-8 text-center text-sm text-muted-foreground">
             Highlighted events will appear here once the backend is wired up.
           </div>
         )}

@@ -35,10 +35,10 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <Link
       href={`/events/${id}`}
-      className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--primary-hover)] focus-visible:ring-offset-2"
+      className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
-      <article className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition group-hover:-translate-y-0.5 group-hover:shadow-lg">
-        <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-[color:var(--primary-soft)] via-white to-slate-100">
+      <article className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-border bg-card shadow-sm transition group-hover:-translate-y-0.5 group-hover:shadow-lg">
+        <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-[color:var(--primary-soft)] via-[color:var(--card)] to-[color:var(--muted)]">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -57,34 +57,34 @@ export default function EventCard({ event }: EventCardProps) {
           )}
         </div>
         <div className="space-y-4 p-6">
-          <div className="flex items-center justify-between gap-4 text-sm text-slate-500">
-            <span className="inline-flex items-center gap-2 font-medium text-slate-700">
+          <div className="flex items-center justify-between gap-4 text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-2 font-medium text-foreground">
               <span>{dateFormatter.format(new Date(dateTime))}</span>
               <span aria-hidden="true">·</span>
               <span>{durationFormatter.format(durationMins)} mins</span>
             </span>
             {category && (
-              <span className="rounded-full border border-slate-300 px-2.5 py-0.5 text-xs uppercase tracking-wide text-slate-600">
+              <span className="rounded-full border border-border px-2.5 py-0.5 text-xs uppercase tracking-wide text-muted-foreground">
                 {category}
               </span>
             )}
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-xl font-semibold tracking-tight text-slate-900 group-hover:text-[color:var(--primary)]">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
               {title}
             </h3>
-            {/* <p className="text-sm text-slate-600">{description}</p> */}
+            {/* <p className="text-sm text-muted-foreground">{description}</p> */}
           </div>
 
           <dl className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
             <div>
-              <dt className="font-medium text-slate-700">Location</dt>
-              <dd className="text-slate-600">{location}</dd>
+              <dt className="font-medium text-foreground">Location</dt>
+              <dd className="text-muted-foreground">{location}</dd>
             </div>
             <div>
-              <dt className="font-medium text-slate-700">Spots left</dt>
-              <dd className="text-slate-600">{available ?? '—'}</dd>
+              <dt className="font-medium text-foreground">Spots left</dt>
+              <dd className="text-muted-foreground">{available ?? '—'}</dd>
             </div>
           </dl>
         </div>

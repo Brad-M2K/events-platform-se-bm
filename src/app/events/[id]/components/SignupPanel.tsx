@@ -119,10 +119,10 @@ export default function SignupPanel({
   }
 
   return (
-    <Card className="rounded-2xl border border-slate-200 shadow-md">
+    <Card className="rounded-2xl border border-border shadow-md">
       {!submitSuccess && (
         <CardHeader className="space-y-2 px-0 pb-0">
-          <CardTitle className="text-lg px-6">Join this event</CardTitle>
+          <CardTitle className="text-lg px-6 text-foreground">Join this event</CardTitle>
           <CardDescription className="px-6">Enter your details below.</CardDescription>
         </CardHeader>
       )}
@@ -132,7 +132,7 @@ export default function SignupPanel({
         ) : (
           <form className="space-y-4" noValidate onSubmit={handleSubmit}>
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-slate-700">
+              <Label htmlFor="name" className="text-foreground">
                 Name<span className="ml-1 text-xs text-[color:var(--primary)]">*</span>
               </Label>
               <Input
@@ -147,7 +147,7 @@ export default function SignupPanel({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-700">
+              <Label htmlFor="email" className="text-foreground">
                 Email<span className="ml-1 text-xs text-[color:var(--primary)]">*</span>
               </Label>
               <Input
@@ -176,8 +176,8 @@ export default function SignupPanel({
         )}
       </CardContent>
 
-      <CardFooter className="border-t border-slate-200 pt-4 px-6">
-        <p className="text-xs text-slate-500">
+      <CardFooter className="border-t border-border pt-4 px-6">
+        <p className="text-xs text-muted-foreground">
           We will confirm your reservation via email. Add the calendar integration once ready.
         </p>
       </CardFooter>

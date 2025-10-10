@@ -20,13 +20,13 @@ export default async function EventListPage() {
           <>
             <Link
               href="#upcoming"
-              className="rounded-lg bg-[color:var(--primary)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[color:var(--primary-hover)]"
+              className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
             >
               View upcoming events
             </Link>
             <Link
               href="/"
-              className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+              className="rounded-lg border border-border px-5 py-2 text-sm font-semibold text-muted-foreground transition hover:border-border hover:text-foreground"
             >
               Back to home
             </Link>
@@ -38,8 +38,8 @@ export default async function EventListPage() {
 
       <section id="upcoming" className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-slate-900">Upcoming events</h2>
-          <p className="text-sm text-slate-600">All times displayed in your local timezone.</p>
+          <h2 className="text-2xl font-semibold text-foreground">Upcoming events</h2>
+          <p className="text-sm text-muted-foreground">All times displayed in your local timezone.</p>
         </div>
 
         <EventGrid events={events} />

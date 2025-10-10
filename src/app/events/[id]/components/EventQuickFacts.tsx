@@ -12,8 +12,8 @@ const factLabels: Array<{ key: keyof AppEvent; label: string }> = [
 
 export default function EventQuickFacts({ event }: EventQuickFactsProps) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-base font-semibold text-slate-900">Event snapshot</h2>
+    <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <h2 className="text-base font-semibold text-foreground">Event snapshot</h2>
       <dl className="mt-4 grid gap-4 sm:grid-cols-3">
         {factLabels.map(({ key, label }) => {
           const value = event[key]
@@ -29,10 +29,10 @@ export default function EventQuickFacts({ event }: EventQuickFactsProps) {
           return (
             <div
               key={key}
-              className="rounded-xl bg-slate-100 px-4 py-3 text-center text-sm font-medium text-slate-700"
+              className="rounded-xl bg-muted px-4 py-3 text-center text-sm font-medium text-foreground"
             >
-              <dt className="text-xs uppercase tracking-wide text-slate-500">{label}</dt>
-              <dd className="mt-1 text-lg text-slate-900">{display}</dd>
+              <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
+              <dd className="mt-1 text-lg text-foreground">{display}</dd>
             </div>
           )
         })}

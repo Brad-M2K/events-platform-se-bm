@@ -54,20 +54,20 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
           <EventQuickFacts event={event} />
 
-          <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900">About this event</h2>
-            <p className="text-sm text-slate-600">{description}</p>
+          <section className="space-y-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-foreground">About this event</h2>
+            <p className="text-sm text-muted-foreground">{description}</p>
           </section>
 
-          <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900">Event details</h2>
-            <dl className="space-y-3 text-sm text-slate-600">
+          <section className="space-y-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-foreground">Event details</h2>
+            <dl className="space-y-3 text-sm text-muted-foreground">
               <div>
-                <dt className="font-medium text-slate-700">Start time</dt>
+                <dt className="font-medium text-foreground">Start time</dt>
                 <dd>{startTime}</dd>
               </div>
               <div>
-                <dt className="font-medium text-slate-700">Venue</dt>
+                <dt className="font-medium text-foreground">Venue</dt>
                 <dd>{location}</dd>
               </div>
             </dl>
@@ -87,7 +87,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             ctaLabel="Sign me up"
           />
 
-          <Link href="/events" className="inline-flex items-center text-sm font-semibold text-[color:var(--primary)]">
+          <Link href="/events" className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80">
             ← Back to events
           </Link>
         </div>
