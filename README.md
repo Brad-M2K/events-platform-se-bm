@@ -46,9 +46,15 @@ ADMIN_PASSWORD="dev-admin-secret"
 
 # .env.test
 DATABASE_URL="postgresql://postgres@localhost:5432/events_platform_test_db?schema=public"
+
+# .env.prod (not committed; used locally when preparing Supabase)
+DATABASE_URL="postgresql://postgres:<password>@db.<your-supabase-ref>.supabase.co:5432/postgres?sslmode=require"
+ADMIN_PASSWORD="production-secret"
+NODE_ENV=production
+SEED_SIZE=1
 ```
 
-For production, mirror `DATABASE_URL` and `ADMIN_PASSWORD` in your hosting provider before deploying.
+For production, mirror `DATABASE_URL` and `ADMIN_PASSWORD` in your hosting provider before deploying. The `.env.prod` file is only for running Prisma commands locally against Supabase—never commit it.
 
 ### 3. Bootstrap the database
 ```bash
@@ -85,6 +91,9 @@ The Jest suite uses `.env.test`, so ensure the referenced database is migrated/s
 | `npm run prisma:gen` | Regenerate Prisma client types. |
 | `npm run db:dev:refresh` | Reset, migrate, and seed the dev DB. |
 | `npm run db:test:refresh` | Reset, migrate, and seed the test DB. |
+| `npm run db:prod:deploy` | Apply Prisma migrations to the Supabase/production DB using `.env.prod`. |
+| `npm run db:prod:seed` | Run the seed script against Supabase (requires `SEED_SIZE=1` in `.env.prod`). |
+| `npm run db:prod:prepare` | Convenience command: deploy migrations then seed Supabase in one go. |
 | `npm run test` / `npm run test:watch` | Jest integration tests. |
 
 ---
@@ -110,7 +119,7 @@ All route handlers share consistent error responses through typed errors and Pri
 
 ## Hosting Notes
 - Deploy on platforms like Vercel. Define `DATABASE_URL` and `ADMIN_PASSWORD` in the project’s environment variables before building.
-- Point `DATABASE_URL` at a managed Postgres instance (e.g., Supabase) and run `npm run db:dev:refresh` once to migrate/seed.
+- Point `DATABASE_URL` at a managed Postgres instance (e.g., Supabase). Then run `npm run db:prod:prepare` locally (with `.env.prod` configured) to push migrations + seed data into Supabase before redeploying.
 - Image upload currently accepts URLs; integrate object storage later if direct uploads are required.
 
 ---
