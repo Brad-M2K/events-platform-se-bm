@@ -48,13 +48,15 @@ ADMIN_PASSWORD="dev-admin-secret"
 DATABASE_URL="postgresql://postgres@localhost:5432/events_platform_test_db?schema=public"
 
 # .env.prod (not committed; used locally when preparing Supabase)
-DATABASE_URL="postgresql://postgres:<password>@db.<your-supabase-ref>.supabase.co:5432/postgres?sslmode=require"
+# Supabase → Project → Settings → Database → Connect → ORMs → "Connection pooling"
+# Host looks like aws-1-region.pooler.supabase.com:6543 and the user is postgres.<project-ref>
+DATABASE_URL="postgresql://postgres.<project-ref>:<password>@aws-1-<region>.pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require"
 ADMIN_PASSWORD="production-secret"
 NODE_ENV=production
 SEED_SIZE=1
 ```
 
-For production, mirror `DATABASE_URL` and `ADMIN_PASSWORD` in your hosting provider before deploying. The `.env.prod` file is only for running Prisma commands locally against Supabase—never commit it.
+For production, mirror `DATABASE_URL` and `ADMIN_PASSWORD` in your hosting provider before deploying. The `.env.prod` file is only for running Prisma commands locally against Supabase—never commit it. Using the pooled connection string keeps serverless environments from spinning up a brand-new Postgres connection on every request.
 
 ### 3. Bootstrap the database
 ```bash
