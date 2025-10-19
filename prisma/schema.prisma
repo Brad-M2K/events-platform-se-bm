@@ -15,10 +15,10 @@ model Event {
   durationMins Int
   location     String
   capacity     Int
-  price        Int?
   imageUrl     String?
   category     String?
   createdAt    DateTime @default(now())
+  price        Int?
   signups      Signup[]
 
   @@index([dateTime])
