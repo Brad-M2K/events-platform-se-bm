@@ -23,7 +23,8 @@ export async function loginAdmin(formData: FormData) {
     return { success: false, message: "Incorrect password." };
   }
 
-  cookies().set({
+  const cookieStore = await cookies();
+  cookieStore.set({
     name: ADMIN_COOKIE,
     value: "1",
     httpOnly: true,
@@ -37,6 +38,7 @@ export async function loginAdmin(formData: FormData) {
 }
 
 export async function logoutAdmin() {
-  cookies().delete(ADMIN_COOKIE);
+  const cookieStore = await cookies();
+  cookieStore.delete(ADMIN_COOKIE);
   return { success: true };
 }

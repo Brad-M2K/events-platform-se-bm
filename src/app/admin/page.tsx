@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-  const authenticated = isAdminAuthenticated();
+  const authenticated = await isAdminAuthenticated();
 
   if (!authenticated) {
     return (

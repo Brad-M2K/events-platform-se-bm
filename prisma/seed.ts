@@ -10,6 +10,7 @@ const size = Number(process.env.SEED_SIZE ?? 0);
 faker.seed(42)
 
 const prisma = new PrismaClient();
+type CreatedEvent = Awaited<ReturnType<PrismaClient['event']['create']>>;
 
 //? realistic events
 const seedEvents = [
@@ -385,7 +386,7 @@ async function main() {
 
 
 
-    const created = [];
+    const created: CreatedEvent[] = [];
     
     for (const data of seedEvents) {
         const e = await prisma.event.create({ data });
