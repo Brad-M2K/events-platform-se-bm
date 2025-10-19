@@ -13,7 +13,8 @@ type EventDetailHeaderProps = {
 }
 
 export default function EventDetailHeader({ event }: EventDetailHeaderProps) {
-  const { title, dateTime, location, category } = event
+  const { title, dateTime, location, category, price } = event
+  const priceLabel = price != null ? `£${price}` : 'Free'
 
   return (
     <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 px-8 py-10 text-foreground shadow-xl backdrop-blur">
@@ -34,6 +35,9 @@ export default function EventDetailHeader({ event }: EventDetailHeaderProps) {
           •
         </span>
         <span className="text-muted-foreground">{location}</span>
+        <span className="ml-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold text-foreground">
+          {priceLabel}
+        </span>
       </div>
 
       <div className="mt-6 space-y-2">

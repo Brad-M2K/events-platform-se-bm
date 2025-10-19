@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-import { getEventById, listEvents, signupForEvent } from '@/server/services/events.service'
+import { createEvent, getEventById, listEvents, signupForEvent } from '@/server/services/events.service'
 import { NotFoundError } from '@/server/errors'
 
 const prisma = new PrismaClient()
@@ -32,6 +32,8 @@ describe('events.service', () => {
     expect(sample.endDateTime).toEqual(expect.any(String))
     expect(sample.startTime).toMatch(/\d{2}:\d{2}/)
     expect(sample.endTime).toMatch(/\d{2}:\d{2}/)
+    expect(sample).toHaveProperty('price')
+    expect(sample.price === null || typeof sample.price === 'number').toBe(true)
 
     const start = new Date(sample.dateTime).getTime()
     const end = new Date(sample.endDateTime).getTime()
@@ -49,6 +51,7 @@ describe('events.service', () => {
     expect(event.startTime).toMatch(/\d{2}:\d{2}/)
     expect(event.endTime).toMatch(/\d{2}:\d{2}/)
     expect(new Date(event.endDateTime).getTime()).toBeGreaterThan(new Date(event.dateTime).getTime())
+    expect(event.price === null || typeof event.price === 'number').toBe(true)
   })
 
   test('getEventById throws for unknown ids', async () => {
@@ -72,5 +75,41 @@ describe('events.service', () => {
         name: 'Service Test User',
       }),
     )
+  })
+
+  test('createEvent persists and normalises event data', async () => {
+    const input = {
+      title: 'API Created Event',
+      description: 'Created during tests',
+      dateTime: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      durationMins: 120,
+      location: 'Test Lab',
+      capacity: 50,
+      price: 25,
+      imageUrl: 'https://example.com/test.jpg',
+      category: 'Testing',
+    }
+
+    const created = await createEvent(input)
+
+    expect(created).toEqual(
+      expect.objectContaining({
+        id: expect.any(String),
+        title: input.title,
+        description: input.description,
+        durationMins: input.durationMins,
+        capacity: input.capacity,
+        price: input.price,
+        imageUrl: input.imageUrl,
+        category: input.category,
+        available: input.capacity,
+      }),
+    )
+
+    const fromDb = await prisma.event.findUnique({ where: { id: created.id } })
+    expect(fromDb).not.toBeNull()
+    expect(fromDb!.title).toBe(input.title)
+
+    await prisma.event.delete({ where: { id: created.id } })
   })
 })

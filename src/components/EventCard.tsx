@@ -29,8 +29,11 @@ export default function EventCard({ event }: EventCardProps) {
     category,
     durationMins,
     available,
+    price,
     imageUrl,
   } = event
+
+  const priceLabel = price != null ? `£${price}` : 'Free'
 
   return (
     <Link
@@ -57,7 +60,7 @@ export default function EventCard({ event }: EventCardProps) {
           )}
         </div>
         <div className="space-y-4 p-6">
-          <div className="flex items-center justify-between gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2 font-medium text-foreground">
               <span>{dateFormatter.format(new Date(dateTime))}</span>
               <span aria-hidden="true">·</span>
@@ -68,6 +71,9 @@ export default function EventCard({ event }: EventCardProps) {
                 {category}
               </span>
             )}
+            <span className="ml-auto rounded-full border border-border px-2.5 py-0.5 text-xs font-semibold text-foreground">
+              {priceLabel}
+            </span>
           </div>
 
           <div className="space-y-2">

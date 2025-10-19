@@ -20,6 +20,7 @@ const seedEvents = [
         durationMins: 90,
         location: "Greenwood Community Center",
         capacity: 30,
+        price: 8,
         category: "Community",
         imageUrl: "https://images.unsplash.com/photo-1517224215055-34e33205d461?q=80&w=3250&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
@@ -40,6 +41,7 @@ const seedEvents = [
         durationMins: 120,
         location: "The Blue Note Cafe",
         capacity: 50,
+        price: 12,
         category: "Music",
         imageUrl: "https://images.unsplash.com/photo-1648808678096-18f488fd6858?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8b3BlbiUyMG1pY3xlbnwwfDB8MHx8fDI%3D"
     },
@@ -50,6 +52,7 @@ const seedEvents = [
         durationMins: 180,
         location: "Art Studio 12",
         capacity: 20,
+        price: 45,
         category: "Learning",
         imageUrl: "https://images.unsplash.com/photo-1744080213179-091b07d559d8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBob3RvZ3JhcGh5JTIwd29ya3Nob3B8ZW58MHwwfDB8fHwy"
     },
@@ -70,6 +73,7 @@ const seedEvents = [
         durationMins: 150,
         location: "Town Hall",
         capacity: 80,
+        price: 5,
         category: "Social",
         imageUrl: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
@@ -170,6 +174,7 @@ const seedEvents = [
         durationMins: 210,
         location: "Riverfront Promenade",
         capacity: 200,
+        price: 18,
         category: "Food",
         imageUrl: "https://images.unsplash.com/photo-1595263431750-b57c02c30102?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Zm9vZCUyMHRydWNrJTIwZmllc3RhfGVufDB8MHwwfHx8Mg%3D%3D"
     },
@@ -230,6 +235,7 @@ const seedEvents = [
         durationMins: 150,
         location: "Hop House",
         capacity: 45,
+        price: 28,
         category: "Social",
         imageUrl: "https://images.unsplash.com/photo-1687771454203-97d0b08bbeb2?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y3JhZnQlMjBiZWVyfGVufDB8MHwwfHx8Mg%3D%3D"
     },

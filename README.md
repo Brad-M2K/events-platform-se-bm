@@ -1,270 +1,130 @@
-
 # Events Platform
 
-**Author:** Bradley Mattison
-
-> Community-driven events hub where staff publish happenings and attendees register with ease.
+Community events hub where staff publish happenings and residents can reserve a place and drop the event straight into Google Calendar.
 
 ---
 
-## Overview
-- Curated catalogue of upcoming events backed by PostgreSQL and Prisma.
-- Public REST APIs powering event listings, detail pages, and attendee signups.
-- TypeScript-first Next.js App Router project with automated data seeding and Jest integration tests.
-
-### Feature Highlights
-| Domain        | Capabilities |
-| ------------- | ------------ |
-| Events        | List, sort, and retrieve detailed event information. |
-| Signups       | Collect attendee name + email per event with duplicate protection. |
-| Operations    | Deterministic seed data for demos and automated tests. |
-
-### Architecture At A Glance
-```mermaid
-flowchart LR
-    Browser["Next.js App Router\n(React, TypeScript)"] -->|fetch| API["Route Handlers\n/src/app/api/**"]
-    API --> Prisma["Prisma Client"]
-    Prisma --> Postgres[(PostgreSQL)]
-    Seed["Seed Script\nprisma/seed.ts"] --> Prisma
-    Tests["Jest Suite\n__tests__"] --> API
-```
+## MVP Checklist
+- **Create events (staff)** – `/admin` route gated by an admin password. Authenticated users get a full create form posting to `POST /api/events`.
+- **Signup to events (public)** – Event detail pages expose a signup panel that validates input (client + Zod) and posts to `POST /api/events/:id/signup`.
+- **Add to calendar** – Successful signup renders a Google Calendar deep link pre-filled with title, description, location, and start/end time.
+- **Non-functional** – Built with TypeScript/Next.js, responsive layouts, deterministic seed data, integration tests, and clear error states.
 
 ---
 
 ## Tech Stack
-- Next.js 15 (App Router, Node.js runtime) + React 19.
-- TypeScript with strict Prisma typings for the data layer.
-- Prisma ORM targeting PostgreSQL, bundled seed generator with Faker.
-- Jest 30 for API and database integration tests.
-- Tailwind/PostCSS toolchain ready for UI work.
+- Next.js 15 (App Router) + React 19
+- TypeScript everywhere
+- Prisma ORM on PostgreSQL
+- Zod for schema validation shared between server and client
+- Tailwind + shadcn/ui primitives
+- Jest integration tests for services and API routes
 
 ---
 
 ## Getting Started
 
-### 1. Prerequisites
-- Node.js 20+ and npm.
-- Local PostgreSQL instance (default connection uses `postgres` user with no password).
-- Git for cloning and version control.
+### Prerequisites
+- Node.js 20+
+- npm
+- PostgreSQL running locally (defaults assume `postgres` user with no password)
 
-### 2. Clone & Install
+### 1. Install dependencies
 ```bash
 git clone <YOUR_FORK_URL>
 cd events-platform
 npm install
 ```
 
-### 3. Environment Variables
-Create `.env` and `.env.test` (copied from the examples below) and update connection strings if needed.
+### 2. Environment variables
+Create the following files in the project root (adjust the URLs/passwords for your setup):
+
 ```dotenv
 # .env
 DATABASE_URL="postgresql://postgres@localhost:5432/events_platform_db?schema=public"
+ADMIN_PASSWORD="dev-admin-secret"
 
 # .env.test
 DATABASE_URL="postgresql://postgres@localhost:5432/events_platform_test_db?schema=public"
 ```
 
-### 4. Database Provisioning
+For production, mirror `DATABASE_URL` and `ADMIN_PASSWORD` in your hosting provider before deploying.
+
+### 3. Bootstrap the database
 ```bash
-# Apply migrations and seed development data
+# Reset, migrate, and seed dev data
 npm run db:dev:refresh
 
-# (Optional) Prep the dedicated test database
+# Optional: prepare the test database
 npm run db:test:refresh
 ```
-The seed script creates 34 realistic events and attaches 1–20 signups per event, giving meaningful data for local development and tests.
 
-### 5. Start Developing
+The seed script loads a full schedule of events plus example signups so the UI has useful data immediately.
+
+### 4. Run the app
 ```bash
 npm run dev
 ```
-Visit `http://localhost:3000` to browse events once the frontend is built out. API endpoints are available immediately under `http://localhost:3000/api/...`.
+Visit `http://localhost:3000` for the public site. Click the user icon to reach `/admin`—enter the password from `.env` to unlock the create form.
 
-### 6. (Optional) Install shadcn/ui primitives
-The UI layer uses components generated via [shadcn/ui](https://ui.shadcn.com/). On a fresh setup, run:
+### 5. Run tests (Postgres must be available)
 ```bash
-npx shadcn@latest init
-npx shadcn@latest add button card input label
+npm run test
 ```
-Those commands populate `components.json` and ensure the files under `src/components/ui/` match the canonical versions. They rely on dependencies already listed in `package.json` (`class-variance-authority`, `tailwind-merge`, `clsx`, etc.).
+The Jest suite uses `.env.test`, so ensure the referenced database is migrated/seeds applied (`npm run db:test:refresh`).
 
 ---
 
 ## Available Scripts
-| Command | Purpose |
-| ------- | ------- |
-| `npm run dev` | Start Next.js in development mode (Turbopack). |
-| `npm run build` / `npm run start` | Production build and serve. |
-| `npm run lint` | Run ESLint against the project. |
-| `npm run prisma:gen` | Regenerate Prisma client. |
-| `npm run db:dev:refresh` | Reset, migrate, and seed the dev database. |
-| `npm run db:test:refresh` | Reset, migrate, and seed the test database. |
-| `npm run test` | Execute the Jest suite using `.env.test`. |
-| `npm run test:watch` | Watch mode for Jest tests. |
+
+| Script | Description |
+| ------ | ----------- |
+| `npm run dev` | Start Next.js with Turbopack. |
+| `npm run build` / `npm run start` | Production build & serve. |
+| `npm run lint` | Run ESLint. |
+| `npm run prisma:gen` | Regenerate Prisma client types. |
+| `npm run db:dev:refresh` | Reset, migrate, and seed the dev DB. |
+| `npm run db:test:refresh` | Reset, migrate, and seed the test DB. |
+| `npm run test` / `npm run test:watch` | Jest integration tests. |
 
 ---
 
-## API Reference
-All endpoints return JSON and assume the Node.js runtime.
+## API Overview
 
-### `GET /api/events`
-- **Description**: Retrieve all events sorted by `dateTime` ascending.
-- **Response `200`**:
-```json
-[
-  {
-    "id": "6e4a925d-52ad-4ff0-8e8d-414d16db2c61",
-    "title": "Coffee Morning Meetup",
-    "description": "Join us for a relaxed morning of coffee and conversation.",
-    "dateTime": "2024-07-10T09:00:00.000Z",
-    "durationMins": 90,
-    "location": "Greenwood Community Center",
-    "capacity": 30,
-    "imageUrl": "https://images.unsplash.com/photo-1517224215055-34e33205d461?...",
-    "category": "Community",
-    "createdAt": "2024-06-01T12:00:00.000Z"
-  }
-]
+- `GET /api/events` – List all upcoming events sorted by `dateTime` with derived timing/availability fields.
+- `GET /api/events/:id` – Fetch a single event (used by detail pages).
+- `POST /api/events` – Admin-only create endpoint (called by the `/admin` form). Validated with `createEventSchema`.
+- `POST /api/events/:id/signup` – Public signup endpoint. Validates request body with `signupSchema`, prevents duplicate email registrations per event, and returns the created signup record.
+
+All route handlers share consistent error responses through typed errors and Prisma error translation.
+
+---
+
+## Admin Workflow
+1. Visit `/admin`.
+2. Enter the password defined in `ADMIN_PASSWORD`. An HTTP-only cookie stores auth for 24 hours.
+3. Fill out the create form (title, description, schedule, pricing, optional image URL, etc.).
+4. Submit to persist the event; the form resets on success and refreshes the page.
+
+---
+
+## Hosting Notes
+- Deploy on platforms like Vercel. Define `DATABASE_URL` and `ADMIN_PASSWORD` in the project’s environment variables before building.
+- Point `DATABASE_URL` at a managed Postgres instance (e.g., Supabase) and run `npm run db:dev:refresh` once to migrate/seed.
+- Image upload currently accepts URLs; integrate object storage later if direct uploads are required.
+
+---
+
+## Project Structure (high level)
 ```
-
-### `GET /api/events/{id}`
-- **Description**: Fetch a single event by UUID.
-- **Path Parameters**: `id` (string, UUID of the event).
-- **Responses**:
-  - `200`: Event object identical to the listing format.
-  - `404`: `{ "error": "Event Not found" }` when the UUID does not exist.
-
-### `POST /api/events/{id}/signup`
-- **Description**: Create a signup for the specified event.
-- **Request Body**:
-```json
-{
-  "name": "Ada Lovelace",
-  "email": "ada@example.com"
-}
+src/
+  app/
+    api/              # Route handlers (events + signups)
+    admin/            # Admin login + create form
+    events/[id]/      # Event detail page and signup flow
+    page.tsx          # Public landing page
+  components/         # Shared UI primitives
+  server/             # Prisma services, schemas, errors
+prisma/               # Prisma schema + seed data
+__tests__/            # Jest API/service integration tests
 ```
-- **Responses**:
-  | Status | Body |
-  | ------ | ---- |
-  | `201` | Created signup record including generated `id` and `createdAt`. |
-  | `400` | `{ "message": "Missing name or email" }` when required fields are absent. |
-  | `404` | `{ "error": "Related record not found" }` if the event is missing. |
-  | `409` | `{ "error": "Duplicate entry" }` when the email already registered for the event. |
-  | `500` | `{ "error": "Internal server error" }` for uncaught issues. |
-
-All API handlers delegate to Prisma and share a centralized error translator (`src/lib/handlePrismaError.ts`) ensuring consistent HTTP responses.
-
----
-
-## Data Model
-| Event Field | Type | Notes |
-| ----------- | ---- | ----- |
-| `id` | `String` | UUID primary key. |
-| `title`, `description`, `location` | `String` | Core content fields. |
-| `dateTime` | `DateTime` | Indexed for chronological ordering. |
-| `durationMins`, `capacity` | `Int` | Capacity used to enforce limits (future enhancement). |
-| `imageUrl`, `category` | `String?` | Optional metadata for richer UI. |
-| `createdAt` | `DateTime` | Default `now()`. |
-
-| Signup Field | Type | Notes |
-| ------------ | ---- | ----- |
-| `id` | `String` | UUID primary key. |
-| `eventId` | `String` | FK → `Event.id`. |
-| `name`, `email` | `String` | Email is unique per event (`@@unique([eventId, email])`). |
-| `createdAt` | `DateTime` | Default `now()`. |
-
-### Entity Relationship Overview
-![Entity relationship diagram showing Event to Signup foreign key](prisma/Schema-v1.png)
-
-`Signup.eventId` is the foreign key referencing `Event.id`, giving each event many signups while every signup points back to a single event.
-
----
-
-## Project Layout
-```
-.
-├── src/
-│   ├── app/
-│   │   ├── api/
-│   │   │   ├── events/route.ts
-│   │   │   ├── events/[id]/route.ts
-│   │   │   └── events/[id]/signup/route.ts
-│   │   ├── events/
-│   │   │   ├── components/
-│   │   │   │   ├── EventFilterBar.tsx
-│   │   │   │   └── EventGrid.tsx
-│   │   │   └── page.tsx
-│   │   ├── events/[id]/
-│   │   │   ├── components/
-│   │   │   │   ├── EventDetailHeader.tsx
-│   │   │   │   ├── EventQuickFacts.tsx
-│   │   │   │   └── SignupPanel.tsx
-│   │   │   └── page.tsx
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/
-│   │   ├── EventCard.tsx
-│   │   ├── PageHero.tsx
-│   │   └── ui/
-│   │       ├── button.tsx
-│   │       ├── card.tsx
-│   │       ├── input.tsx
-│   │       └── label.tsx
-│   ├── lib/
-│   │   ├── handlePrismaError.ts
-│   │   ├── prisma.ts
-│   │   ├── types.ts
-│   │   └── utils.ts
-│   └── server/
-│       ├── errors.ts
-│       ├── schema/
-│       │   └── events.ts
-│       └── services/
-│           └── events.service.ts
-├── prisma/
-│   ├── schema.prisma
-│   └── seed.ts
-└── __tests__/
-    ├── api/
-    └── db/
-```
-
----
-
-## Testing & Quality
-- `npm run test` executes API contract tests and Prisma model assertions with a dedicated test database.
-- `__tests__/api` covers happy-path and failure cases for each route handler.
-- `__tests__/db` validates seeding, constraints (unique email per event), and referential integrity.
-- Ensure the test database is refreshed (`npm run db:test:refresh`) if schema or seed data changes.
-
----
-
-## Development Workflow Tips
-- Run `npm run prisma:gen` after editing `prisma/schema.prisma`.
-- Use `npm run db:dev:refresh` after migrations to keep seed data aligned.
-- Prisma Studio (`npm run db:studio:dev`) offers a quick GUI for inspecting events and signups.
-- Keep `.env.test` synchronized with `.env` changes so tests reflect production-like settings.
-- Theme tokens for shadcn components live in `src/app/globals.css` (`--primary`, `--accent`, etc.). Adjust those once to recolour the entire UI.
-- When you need additional shadcn primitives, use the CLI (`npx shadcn@latest add …`) so `components.json` and generated files stay in sync.
-- Shared database logic lives under `src/server/services`. API routes validate via Zod (`src/server/schema`) and translate service errors (`src/server/errors`) into HTTP responses—reuse the same helpers inside server components for consistency.
-
----
-
-## Roadmap Ideas
-- Event creation & management UI for staff.
-- Calendar integration (Google/ICS downloads) post-signup.
-- Capacity enforcement and waitlist handling.
-- Email notifications and attendee management dashboard.
-
----
-
-## Troubleshooting
-| Symptom | Fix |
-| ------- | --- |
-| `P1001` Prisma connection errors | Verify PostgreSQL is running and connection string credentials match. |
-| Tests hang on teardown | Ensure the test database URL points to an isolated schema and Prisma disconnects successfully. |
-| Seed script exits immediately | Check `NODE_ENV`; in production it intentionally no-ops unless `SEED_SIZE` is set. |
-
----
-
-Happy building!

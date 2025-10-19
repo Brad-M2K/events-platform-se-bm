@@ -10,6 +10,7 @@ const factLabels: Array<{ key: keyof AppEvent; label: string }> = [
   { key: 'durationMins', label: 'Duration' },
   { key: 'capacity', label: 'Capacity' },
   { key: 'available', label: 'Spots left' },
+  { key: 'price', label: 'Price' },
 ]
 
 export default function EventQuickFacts({ event }: EventQuickFactsProps) {
@@ -27,6 +28,8 @@ export default function EventQuickFacts({ event }: EventQuickFactsProps) {
             display = value != null ? (value as number) : '—'
           } else if (key === 'startTime' || key === 'endTime') {
             display = value as string
+          } else if (key === 'price') {
+            display = value != null ? `£${value as number}` : 'Free'
           }
 
           return (

@@ -43,9 +43,10 @@ describe('Event model', () => {
         expect(event!.signups.length).toBeGreaterThan(0)
     })
 
-    test('seed populates optional fields (imageUrl, category)', async () => {
+    test('seed populates optional fields (imageUrl, category, price)', async () => {
         const event = await prisma.event.findFirst({
-        select: { imageUrl: true, category: true },
+        where: { price: { not: null } },
+        select: { imageUrl: true, category: true, price: true },
         })
 
         expect(event).not.toBeNull()
@@ -54,6 +55,8 @@ describe('Event model', () => {
         expect(event!.imageUrl!.trim().length).toBeGreaterThan(0)
         expect(typeof event!.category).toBe('string')
         expect(event!.category!.trim().length).toBeGreaterThan(0)
+        expect(typeof event!.price).toBe('number')
+        expect(event!.price).toBeGreaterThan(0)
     })
 
     test('allows creating an event without optional fields', async () => {
@@ -71,6 +74,7 @@ describe('Event model', () => {
         try {
         expect(createdEvent.imageUrl).toBeNull()
         expect(createdEvent.category).toBeNull()
+        expect(createdEvent.price).toBeNull()
         expect(createdEvent.createdAt).toBeInstanceOf(Date)
         } finally {
         await prisma.event.delete({ where: { id: createdEvent.id } })

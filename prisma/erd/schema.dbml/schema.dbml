@@ -1,0 +1,33 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Event {
+  id String [pk]
+  title String [not null]
+  description String [not null]
+  dateTime DateTime [not null]
+  durationMins Int [not null]
+  location String [not null]
+  capacity Int [not null]
+  price Int
+  imageUrl String
+  category String
+  createdAt DateTime [default: `now()`, not null]
+  signups Signup [not null]
+}
+
+Table Signup {
+  id String [pk]
+  eventId String [not null]
+  name String [not null]
+  email String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  event Event [not null]
+
+  indexes {
+    (eventId, email) [unique]
+  }
+}
+
+Ref: Signup.eventId > Event.id

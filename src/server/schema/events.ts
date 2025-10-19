@@ -11,6 +11,7 @@ const baseEventSchema = z.object({
   durationMins: z.number().int().positive(),
   location: z.string().min(1, 'Location is required'),
   capacity: z.number().int().nonnegative(),
+  price: z.number().nonnegative().nullable().optional(),
   imageUrl: z.string().url().nullable().optional(),
   category: z.string().min(1).nullable().optional(),
 })

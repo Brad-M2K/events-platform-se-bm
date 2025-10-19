@@ -26,7 +26,18 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
   }
 
 
-  const { title, description, dateTime, location, imageUrl } = event
+  const {
+    id,
+    title,
+    description,
+    dateTime,
+    endDateTime,
+    startTime,
+    endTime,
+    durationMins,
+    location,
+    imageUrl,
+  } = event
 
   const dateDetailFormatter = new Intl.DateTimeFormat('en-GB', {
     weekday: 'long',
@@ -35,9 +46,6 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     hour: '2-digit',
     minute: '2-digit',
   })
-
-  const startDateDisplay = dateDetailFormatter.format(new Date(dateTime))
-  const endDateDisplay = dateDetailFormatter.format(new Date(event.endDateTime))
 
   return (
     <div className="space-y-10">
@@ -65,11 +73,15 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             <dl className="space-y-3 text-sm text-muted-foreground">
               <div>
                 <dt className="font-medium text-foreground">Starts</dt>
-                <dd>{startDateDisplay} ({event.startTime})</dd>
+                <dd>
+                  {dateDetailFormatter.format(new Date(dateTime))} ({startTime})
+                </dd>
               </div>
               <div>
                 <dt className="font-medium text-foreground">Ends</dt>
-                <dd>{endDateDisplay} ({event.endTime})</dd>
+                <dd>
+                  {dateDetailFormatter.format(new Date(endDateTime))} ({endTime})
+                </dd>
               </div>
               <div>
                 <dt className="font-medium text-foreground">Venue</dt>
@@ -81,12 +93,12 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
         <div className="space-y-6">
           <SignupPanel
-            eventId={event.id}
+            eventId={id}
             eventDetails={{
               title,
               description,
               dateTime,
-              durationMins: event.durationMins,
+              durationMins,
               location,
             }}
             ctaLabel="Sign me up"

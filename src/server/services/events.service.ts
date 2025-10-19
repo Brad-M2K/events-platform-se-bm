@@ -11,6 +11,7 @@ export type CreateEventInput = {
   durationMins: number
   location: string
   capacity: number
+  price?: number | null
   imageUrl?: string | null
   category?: string | null
 }
