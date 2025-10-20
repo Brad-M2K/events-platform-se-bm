@@ -47,3 +47,5 @@ export default async function EventListPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'
