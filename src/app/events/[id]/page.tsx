@@ -54,8 +54,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="space-y-8">
           {imageUrl && (
-            <div className="overflow-hidden rounded-3xl">
-              <div className="relative h-72 w-full">
+            <div className="overflow-hidden rounded-3xl border border-border/60 bg-card/60">
+              <div className="relative h-72 w-full max-w-[720px]">
                 <Image src={imageUrl} alt={title} fill className="object-cover" loading="lazy" />
               </div>
             </div>
